@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <style>
+        td {
+            padding: 30px;
+            background-color: red;
+            border: 1px solid black;
+        }
+
+        .blueClass {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td><em>1</em></td>
+            <td><em>2</em></td>
+        </tr>
+        <tr>
+            <td><em>3</em></td>
+            <td><em>4</em></td>
+        </tr>
+    </table>
+    <script>
+        let selected;
+        let table = document.querySelector('table')
+        table.onclick = (e) => {
+            //let target = e.target
+            console.log(e.target)
+            let targetSelected = e.target.closest('td')
+            if (targetSelected.tagName != 'TD') {
+                return;
+            }
+            changeColor(targetSelected);
+        }
+        function changeColor(targetSelected) {
+            if (selected) {
+                selected.classList.remove('blueClass');
+            }
+            alert(targetSelected.innerHTML)
+
+            selected = targetSelected;
+            selected.classList.add('blueClass')
+        }
+    </script>
+</body>
+
+</html>

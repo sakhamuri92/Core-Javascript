@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <style>.active{
+            background: red;
+          }
+
+        </style>
+    </head>
+    <body>
+        <ul id="ul">
+            <li><p>venky</p></li>
+            <li><p>swaroop</p></li>
+            </ul>
+            <script>
+                var el = document.getElementById("ul")
+el.addEventListener('click',(e) =>{
+
+/* var clickedTarget = e.target */;
+var clickedTarget = e.target.closest('li');
+console.log("clicked element",clickedTarget.innerHTML)
+var allLi = Array.from(document.querySelectorAll('ul > li'))
+for(let i in allLi) {
+allLi[i].classList.remove(".active");
+}
+allLi.forEach((item, index) => {
+      allLi[index].classList.remove("active");
+});
+ clickedTarget.classList.add('active');
+})
+            </script>
+    </body>
+</html>

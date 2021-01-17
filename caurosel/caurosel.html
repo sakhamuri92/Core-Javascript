@@ -1,0 +1,375 @@
+<html>
+    <head>
+        <style>
+            html,body {
+                padding: 10px 2px 0px 2px;
+                margin: 0;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            .galleryContainer {
+                width: 100%;
+                height: 500px;
+                max-width: 1000px;
+                user-select: none;
+                box-shadow: 0px 0px 3px 1px #00000078;
+                padding: 10px;
+                margin: 0 auto;
+            }
+            .sliderShowContainer {
+                width: 100%;
+                height: 90%;
+                overflow: hidden;
+                background-color: gainsboro;
+                position: relative;
+            }
+            .galleryContainer .sliderShowContainer .imageHolder {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                opacity: 0;
+            }
+            .galleryContainer .sliderShowContainer .imageHolder img {
+                width:100%;
+                height: 100%;
+            }
+            .galleryContainer .sliderShowContainer .imageHolder .captionText {
+                display: none;
+            }
+            .galleryContainer .sliderShowContainer .leftArrow, .galleryContainer .sliderShowContainer .rightArrow {
+                width: 50px;
+                background: #00000036;
+                position: absolute;
+                left:0;
+                z-index: 1;
+                transition: background 0.5s;
+                height: 72px;
+                top: 50%;
+                transform: translateY(-50%);
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            .galleryContainer .sliderShowContainer .rightArrow  {
+                left: auto;
+                right: 0;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+            .galleryContainer .sliderShowContainer .leftArrow:hover{
+                cursor: pointer;
+                background: #000000a8;
+            }
+            .galleryContainer .sliderShowContainer .rightArrow:hover {
+                cursor: pointer;
+                background: #000000a8;
+            }
+            .galleryContainer .sliderShowContainer .arrow {
+                display: inline-block;
+                border: 3px solid white;
+                width: 10px;
+                height: 10px;
+                border-left: none;
+                border-bottom: none;
+                position:absolute;
+                margin:auto;
+                left:0;
+                right:0;
+                top: 0;
+                bottom: 0;
+            }
+            .galleryContainer .sliderShowContainer .arrow.arrowLeft{
+                transform: rotateZ(-135deg);
+            }
+            .galleryContainer .sliderShowContainer .arrow.arrowRight{
+                transform: rotateZ(45deg);
+            }
+            .galleryContainer .sliderShowContainer>.captionHolder {
+                position: absolute;
+                bottom:0;
+                z-index: 1;
+                color: white;
+                font-family: sans-serif;
+                font-size: 20px;
+                text-align: center;
+                width: 100%;
+                background: #00000047;
+                height: 50px;
+                line-height: 50px;
+                overflow: hidden;
+            }
+            .galleryContainer .sliderShowContainer>.captionHolder >.captionText {
+                margin: 0;
+            }
+            .galleryContainer .sliderShowContainer .playPauseBtn {
+                width: 32px;
+                height: 32px;
+                position: absolute;
+                z-index: 5;
+                margin: 5px;
+                cursor: pointer;
+                background-image: url("images/playPause.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .galleryContainer #dotsContainer {
+                width: 100%;
+                height: 10%;
+                text-align: center;
+                padding-top:20px;
+            }
+            .galleryContainer #dotsContainer .dots {
+                display: inline-block;
+                border-radius: 50%;
+                margin-left: 10px;
+                width: 15px;
+                height: 15px;
+                background-color: #bbb;
+                cursor: pointer;
+                transition: background-color 0.5s;
+            }
+            .galleryContainer #dotsContainer .dots:hover,.galleryContainer #dotsContainer .dots.active {
+                background-color: #717171;
+
+            }
+            .galleryContainer #dotsContainer .dots:first-child {
+                margin-left: 0;
+            }
+            .galleryContainer .moveLeftCurrentSlide {
+                animation-name: moveLeftCurrent;
+                animation-duration: 0.5s;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+            }
+         
+            @keyframes moveLeftCurrent {
+                from {
+                    margin-left: 0;
+                    opacity: 1;
+                }
+                to {
+                    margin-left: -100%;
+                    opacity: 1;
+                }
+            }
+            .galleryContainer .moveLeftNextSlide {
+                animation-name: moveLeftNext;
+                animation-duration: 0.5s;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+            }
+            @keyframes moveLeftNext {
+                from {
+                    margin-left: 100%;
+                    opacity: 1;
+                }
+                to {
+                    margin-left: 0;
+                    opacity: 1;
+                }
+            }
+            .galleryContainer .moveRightCurrentSlide {
+                animation-name: moveLeftCurrent;
+                animation-duration: 0.5s;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+            }
+            @keyframes moveRightCurrent {
+                from {
+                    margin-left: 0;
+                    opacity: 1;
+                }
+                to {
+                    margin-left: 100%;
+                    opacity: 1;
+                }
+            }
+            .galleryContainer .moveRightNextSlide {
+                animation-name: moveRightNext;
+                animation-duration: 0.5s;
+                animation-timing-function: linear;
+                animation-fill-mode: forwards;
+            }
+            @keyframes moveRightNext {
+                from {
+                    margin-left: -100%;
+                    opacity: 1;
+                }
+                to {
+                    margin-left: 0;
+                    opacity: 1;
+                }
+            }
+            .slideTextFromBottom {
+                animation-name: slideTextFromBottom;
+                animation-duration: .7s;
+                animation-timing-function: ease-out;
+            }
+            @keyframes  slideTextFromBottom {
+                from {
+                    opacity: 0;
+                    margin-top: 100px;
+                }
+                to {
+                    opacity: 1;
+                    margin-top: 0;
+                }
+            }
+            .slideTextFromTop {
+                animation-name: slideTextFromTop;
+                animation-duration: .7s;
+                animation-timing-function: ease-out;
+            }
+            @keyframes  slideTextFromTop {
+                from {
+                    opacity: 0;
+                    margin-top: -100px;
+                }
+                to {
+                    opacity: 1;
+                    margin-top: 0;
+                }
+            }
+        </style>
+
+    </head>
+    <body>
+            <div class="galleryContainer">
+                <div class="sliderShowContainer">
+                    <div class="playPauseBtn" id="playPauseBtn" onclick="playPauseSlides()">
+
+                    </div>
+                    <div class="leftArrow" onclick="plusSlides(-1)">
+                        <span class="arrow arrowleft"></span>
+                    </div>
+
+                    <div class="rightArrow" onclick="plusSlides(1)">
+                        <span class="arrow arrowRight"></span>
+                    </div>
+                    <div class="captionHolder">
+                        <p class="captionText"></p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="images/img_1.jpg">1366X768
+                        <p class="captionText">Caption Text-01</p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="images/img_2.jpg">
+                        <p class="captionText">Caption Text-02</p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="images/img_3.jpg">
+                        <p class="captionText">Caption Text-03</p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="images/img_4.jpg">
+                        <p class="captionText">Caption Text-04</p>
+                    </div>
+                    <!-- <div class="imageHolder">
+                        <img src="https://picsum.photos/seed/picsum/1000/1000" />
+                        <p class="captionText">Caption Text 01</p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="https://picsum.photos/1000/1000?random=1">
+                        <p class="captionText">Caption Text 02</p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="https://picsum.photos/1000/1000?random=2">
+                        <p class="captionText">Caption Text 03</p>
+                    </div>
+                    <div class="imageHolder">
+                        <img src="https://picsum.photos/1000/1000?random=2">
+                        <p class="captionText">Caption Text 04</p>
+                    </div> -->
+                </div>
+                <div id="dotsContainer"></div>
+            </div>
+            <script>
+                var slideIndex,slides,dots,captionText;
+                function initGallery () {
+                    slideIndex = 0;
+                    slides = document.getElementsByClassName('imageHolder');
+                    slides[slideIndex].style.opacity = 1;
+                    captionText = document.querySelector('.captionHolder .captionText');
+                    captionText.innerHTML = slides[slideIndex].querySelector('.captionText').innerHTML;
+
+                    dots = [];
+                    var dotsContainer = document.getElementById('dotsContainer');
+                    for(let i=0;i<slides.length;i++) {
+                        var dot = document.createElement('span')
+                        dot.classList.add('dots');
+                        dot.setAttribute('onClick',"moveSlide("+i+")")
+                        dotsContainer.append(dot)
+                        dots.push(dot)
+                    }
+                    dots[slideIndex].classList.add('active')
+                }
+                initGallery();
+         
+                function plusSlides(n) {
+                    moveSlide(slideIndex+n);
+                }
+
+                function moveSlide(n) {
+                    var i,currentSlide,nextSlide;
+                    var moveSlideAnimClass = {
+                        forCurrent:"",
+                        forNext:""
+                    }
+                    var slideTextAnimClass;
+                    if(n > slideIndex) {
+                        if(n >= slides.length) {
+                            n = 0;
+                        }
+                        moveSlideAnimClass.forCurrent = "moveLeftCurrentSlide";
+                        moveSlideAnimClass.forNext = "moveLeftNextSlide"
+                        slideTextAnimClass = 'slideTextFromTop'
+                    }else if(n < slideIndex){
+                        if(n < 0) {
+                            n = slides.length-1;
+                        }
+                        moveSlideAnimClass.forCurrent = "moveRightCurrentSlide";
+                        moveSlideAnimClass.forNext = "moveRightNextSlide"
+                        slideTextAnimClass = 'slideTextFromBottom'
+                    }
+                 if(n !=slideIndex) {
+                        nextSlide = slides[n];
+                        currentSlide = slides[slideIndex];
+                        for(i=0;i<slides.length;i++){
+                            slides[i].className = 'imageHolder';
+                            slides[i].style.opacity = 0;
+                            dots[i].classList.remove('active')
+                        }
+                        currentSlide.classList.add(moveSlideAnimClass.fromCurrent)
+                        nextSlide.classList.add(moveSlideAnimClass.forNext);
+                        dots[n].classList.add('active');
+                        slideIndex = n;
+                    }
+                    captionText.style.display = 'none';
+                    captionText.className = "captionText "+slideTextAnimClass;
+                    captionText.innerText =  slides[n].querySelector('.captionText').innerText;
+                    captionText.style.display = 'block'
+                }
+                var timer = null;
+                function setTimer() {
+                    timer =setInterval(() =>{
+                        plusSlides(1)
+                    },3000)
+                }
+                setTimer();
+                function playPauseSlides() {
+                    var playPauseBtn = document.getElementById('playPauseBtn');
+                    if(timer ==null) {
+                        setTimer();
+                        playPauseBtn.style.backgroundPositionY = '0px';
+                    }else {
+                        clearInterval(timer);
+                        timer = null;
+                        playPauseBtn.style.backgroundPositionY = '-33px'
+                    }
+                }
+            </script>
+    </body>
+</html> 

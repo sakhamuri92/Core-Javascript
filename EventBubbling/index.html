@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html onclick = "html()">
+<script>
+function a(e){
+alert("button 1")
+}
+function b(e){
+e.preventDefault()
+e.stopPropagation()
+alert("button 2")
+}
+
+function html(e){
+alert("html")
+}
+
+</script>
+<body>
+
+<h2>My First JavaScript</h2>
+<div>
+<button type="button"
+onclick="a()">
+Click me to display Date and Time.</button>
+
+<button type="button"
+onclick="b(event)">
+Click me to display Date and Time.</button>
+
+
+</div>
+
+
+
+
+<p id="demo"></p>
+
+</body>
+</html> 
