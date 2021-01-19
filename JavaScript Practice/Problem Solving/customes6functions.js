@@ -89,6 +89,48 @@ var name = {
     myf('helllo',1,2);
 
     
+var s = ['Javascriptsdddd','a',['b','ca','abc',['abcdde',['testdfdftesttinghins']]]]
+f = s.flat(Infinity)
+const result = f.reduce((acc,curr) => Math.max(acc,curr.length),0);
+console.log(result);
+
+
+// occurences for loop
+const str = "aabbccddaa";
+let obj = {}
+
+for(let ch of str) {
+if(!obj[ch]){
+obj[ch] = 1
+}else {
+obj[ch] = obj[ch]+1
+}
+}
+
+// letter occurences reduce
+const ss = str.split("")
+
+const sss = ss.reduce((cache,curr) => {
+if(cache[curr]) {
+   return {...cache,[curr]:cache[curr]+1}
+}else {
+   return {...cache,[curr]:1}
+}
+},{})
+console.log(sss)
+
+// flatten using spread
+
+function usingReduce(r){
+return r.reduce((previous,current) => {
+return Array.isArray(current)? [...previous,...usingReduce(current)]: [...previous,current]
+},[])
+}
+ 
+console.log(usingReduce(s))
+console.log([...new Set(str.split(""))])
+
+    
 /* Array.prototype.customSort = function(sortoperation) {
 const arr = this;
 for(let i=0;i<arr.length;i++) {
