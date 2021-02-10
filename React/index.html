@@ -1,0 +1,48 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div id="root">React not Rendered</div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script>
+        function add(x, y) {
+            alert(x + y)
+        }
+        const Person = (props) => {
+            return React.createElement('div',{},[
+                React.createElement('p',{},props.name)
+            ])
+        }
+        class App extends React.Component{
+            render(){
+                return React.createElement(
+                "div", {id: 'root-element'},
+                [
+                React.createElement('h1', {}, "React Rendered"),
+                React.createElement('button', {
+                    onClick: () => { add(4, 5) }
+                }, 'Login'),
+                React.createElement('Person',{name:"venky"})]
+            )
+            }
+        }
+        // const App = () => {
+        //     return React.createElement(
+        //         "div", {id: 'root-element'},
+        //         [
+        //         React.createElement('h1', {}, "React Rendered"),
+        //         React.createElement('button', {
+        //             onClick: () => { add(4, 5) }
+        //         }, 'Login'),
+        //         React.createElement('Person',{name:"venky"})]
+        //     )
+        // }
+        ReactDOM.render(React.createElement(App), document.getElementById('root'))
+    </script>
+</body>
+
+</html>
