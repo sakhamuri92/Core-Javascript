@@ -117,7 +117,7 @@ if(cache[curr]) {
    return {...cache,[curr]:1}
 }
 },{})
-console.log(sss)
+console.log(sss);
 
 // flatten using spread
 
