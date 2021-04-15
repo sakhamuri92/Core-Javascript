@@ -274,3 +274,46 @@ var module = {
     console.log("==========>",cat.prototype)
     var c = new cat("dfd")
     c.speak("kol")
+
+    function hello() {
+
+         setTimeout(function() {
+         console.log(this.name); 
+         }, 100);
+        }
+        hello.call({name: 'tom'})
+
+function hello() {
+let self =this
+ setTimeout(function() {
+ console.log(self.name); 
+ }, 100);
+}
+hello.call({name: 'tom'})
+
+        // pass an arrow function to setTimeout
+function hello() {
+    setTimeout(() => {
+    console.log(this.name); // -> `tom` will be logged.
+    }, 100);
+   }
+   hello.call({name: 'tom'})
+
+   function hello() {
+
+      setTimeout(function() {
+        console.log(obj.name);
+      }, 4000);
+    const obj = {name:"venky"}
+    }
+    hello()
+
+    var obj = {name: 'tom'}
+function hello() {
+  setTimeout(function() {
+    console.log(this.name);
+  }, 100);
+}
+hello.call(obj) //undefined
+
+

@@ -1,4 +1,9 @@
 
+https://www.freecodecamp.org/news/thrown-for-a-loop-understanding-for-loops-and-timeouts-in-javascript-558d8255d8a4/
+
+https://dev.to/ganeshmani/promises-inside-a-loop-javascript-es6-19p4
+https://medium.com/developer-rants/running-promises-in-a-loop-sequentially-one-by-one-bd803181b283
+
 
 let promisetocleanroom = new Promise(function (resolve, reject) {
     let isclean = false
@@ -265,3 +270,45 @@ const fruitBasket = {
     let devlob = new Devlob()
     devlob.get("https://randomuser.me/api/?results=5")
     
+    function delay(ms){
+        return new Promise((resolve,reject) => {
+            setTimeout(function() {
+              console.log(ms)
+            setTimeout(()=>{
+                resolve('resolved')
+            },250)
+          },ms)
+        })
+        }
+        let a = [1000,2000,3000,0]
+        
+         function sequenceCallsWithPromise(){
+        for(var i=0;i<a.length;i++) {
+        console.log("sequenceCallsWithPromise")
+        delay(a[i]).then((d) => console.log(d))
+        }
+        }
+        
+        async function sequenceCallsWithAsyncAwait(){
+        for(var i=0;i<a.length;i++) {
+        console.log("sequenceCallsWithAsyncAwait")
+        /* delay(a[i]).then((d) => console.log(d)) */
+        const res = await delay(a[i])
+        console.log(res);
+        }
+        }
+        
+         async function asyncparallelCallsWithMap(){
+         console.log("parallel calls")
+        const promises = await Promise.all[a.map((d) => delay(d))];
+        console.log(promises);
+        }
+        function parallelCallsWithMap(){
+        const promises = a.map((d) => delay(d).then((data)=>console.log(data)))
+        }
+        
+        parallelCallsWithMap()
+        /* sequenceCallsWithPromise() */
+        /* sequenceCallsWithAsyncAwait(); */
+        
+        
